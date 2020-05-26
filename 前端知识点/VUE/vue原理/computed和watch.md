@@ -1,0 +1,13 @@
+Vue在beforeCreated和created之间调用initState方法中的initComputed，对computed对象进行一个初始化，将传入的渲染函数进行监听
+
+computed本质上是一个watcher，不过它有自己的getter函数以及dirty开关，当dirty开关为true的时候，才会调用它自己的getter方法去获取值
+
+在computed进行第一次渲染的时候，首先会访问到渲染函数，将渲染函数设置成自己的依赖，在执行渲染函数的时候会碰上响应式数据，响应式数据会将computedWatcher设置成自己的依赖，所以Dep的关系是
+
+    响应式数据 => computedWatcher => 渲染watcher
+
+获取到值后会dirty会被重新设置为false，直到响应式数据改变
+
+而watch没有缓存性，只要被触发就会去求值并且重新渲染，可以开启deep：true将对象中的每一项属性进行监听，不过会带来性能问题
+
+所以computed更适合依赖多个响应式数据的场景，而watch更适合用来监听某一项数据改变后的执行场景

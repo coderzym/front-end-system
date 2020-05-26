@@ -1,0 +1,3 @@
+loader：本质是一个函数，可以理解为转换器，因为webpack只认识JS代码，所以需要loader来进行转义，loader是在module.rules中配置，类型是一个数组，每一项都是Object
+
+plugin：本质是一个插件，可以理解为扩展器，用于扩展webpack的功能，在plugins中单独配置，类型为数组，每一项都是plugin是一个实例，参数需要通过构造函数的形式传入

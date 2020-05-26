@@ -1,0 +1,45 @@
+header,
+footer {
+    width: 100%;
+    height: 100px;
+    background-color: pink;
+}
+
+.center,
+.left,
+.right {
+    float: left;
+}
+
+.center {
+    width: 100%;
+    background-color: green;
+}
+
+.left {
+    width: 200px;
+    margin-left: -100%;
+    background-color: red;
+    position: relative;
+    left: -200px;
+}
+
+.right {
+    width: 200px;
+    margin-left: -200px;
+    background-color: blue;
+    position: relative;
+    right: -200px;
+}
+
+/* main::after {
+    content: '';
+    display: block;
+    clear: both;
+} */
+
+main {
+    padding: 0 200px;
+    overflow: hidden;
+    /*   生成BFC，和清除伪元素效果一样   */
+}

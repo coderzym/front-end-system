@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const baseUrl = 'http://localhost:3000/personalized?limit=8';
+        // axios.interceptors.request.use(
+        //     config => {
+        //         if (config.method === 'get') {
+        //             console.log('狗贼，休想发请求');
+        //             return false
+        //         }
+        //         return config
+        //     },
+        //     error => {
+        //         console.log(error);
+        //     }
+        // )
+        axios.interceptors.response.use(
+            response => {
+                console.log('恭喜你，请求成功')
+                return response
+            },
+            error => console.log(error)
+        )
+        axios.get(baseUrl).then(
+            v => {
+                console.log(v)
+            },
+            r => console.log(r)
+        )
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+MVVM实际上是model-modelView-view的缩写，model是指数据模型，view是指UI组件，modelView则是这两个模型链接的桥梁，当数据发生改变视图会自动更新，视图发生改变也会更新数据

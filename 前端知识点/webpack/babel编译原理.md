@@ -1,0 +1,5 @@
+首先通过babylon将ES6/ES7编译为AST
+
+将AST通过babel-traverse转化为新的AST
+
+将新的AST通过babel-generator转化为ES5

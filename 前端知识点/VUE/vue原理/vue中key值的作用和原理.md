@@ -1,0 +1,1 @@
+key的主要作用是高效的更新DOM，从源码的角度上来看，vue在patch的过程中调用patchVnode方法，patchVnode方法会调用updateChildren方法，每次对比之前都会调用sameNode方法，如果没key的话，会判断为同一个节点，所以总是会更新；有key的情况下，会精准的判断两个节点是否相同，避免频繁更新元素，从而提高性能。

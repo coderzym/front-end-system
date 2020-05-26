@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // jsonp跨域原理，创建回调函数，插入script标签
+        function jsonp ({url, params, cb}) {
+            return new Promise ((resolve, reject) => {
+                // 创建script标签
+                let script = document.createElement ('script')
+                // 将回调函数保存起来
+                window[cb] = function (data) {
+                    resolve (data)
+                    // 成功运行后删除script标签
+                    document.body.removeChild (script)
+                }
+                // 将回调函数加在请求地址上
+                params = {...params, cb}
+                let arr = []
+                for (let k in params) {
+                    arr.push (`${k}=${params[k]}`)
+                }
+                script.src = `${url}?${arr.join ('&')}`
+                document.appendChild (script)
+            })
+        }
+        function sayHi(data) {
+            console.log(data);
+        }
+        jsonp ({
+            url: 'http://localhost:3000/say',
+            params: {},
+            cb: 'sayHi'
+        }).then (data =>{
+            console.log(data);
+        })
+    </script>
+</body>
+</html>
