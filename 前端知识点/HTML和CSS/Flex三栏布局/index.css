@@ -1,0 +1,21 @@
+.father {
+    height: 150px;
+    display: flex;
+    border: 1px solid black;
+}
+
+.left {
+    width: 200px;
+    height: 100px;
+    background-color: pink;
+}
+
+.right {
+    width: 200px;
+    height: 100px;
+    background-color: blue;
+}
+
+.center {
+    flex: 1;
+}

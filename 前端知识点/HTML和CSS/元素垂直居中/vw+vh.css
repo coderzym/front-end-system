@@ -1,0 +1,10 @@
+.one {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    margin: 0;
+    transform: translate(-50%, -50%);
+}

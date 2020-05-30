@@ -32,14 +32,7 @@ footer {
     right: -200px;
 }
 
-/* main::after {
-    content: '';
-    display: block;
-    clear: both;
-} */
-
 main {
     padding: 0 200px;
     overflow: hidden;
-    /*   生成BFC，和清除伪元素效果一样   */
 }
