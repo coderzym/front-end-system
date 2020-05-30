@@ -9,15 +9,10 @@
 
 <body>
     <script>
-        let obj = {
-            a: 1,
-            b: 2,
-            c: 3
-        }
-
-        for (let k in obj) {
-            if (obj.hasOwnProperty(k)) {
-                console.log(obj[k])
+        new my()
+        class my {
+            constructor() {
+                console.log(1);
             }
         }
     </script>
