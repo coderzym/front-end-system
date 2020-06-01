@@ -5,18 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        .b {
-            animation: name duration timing-function delay iteration-count direction fill-mode;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="b"></div>
+    <div id="app">
+        <!-- 这里是懒得写，所以用了index当key -->
+        <div class='shuru' v-for='(v, k) in arr' :key=k>
+            <div class="selfInput" :bind=v>
+                <input type="text" :placeholder=v>
+                <button @click='createInput'>+</button>
+                <button @click='deleteInput(k)'>删除</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script>
-        let el = document.getElementsByClassName('b')
-        console.log(el);
+        new Vue({
+            el: '#app',
+            data: {
+                arr: [1, 2, 3]
+            },
+            methods: {
+                createInput() {
+                    this.arr.push(this.arr.length + 1)
+                    console.log(this.arr)
+                },
+                deleteInput(k) {
+                    this.arr.splice(k, 1)
+                    console.log(this.arr)
+                }
+            }
+        })
     </script>
 </body>
 
