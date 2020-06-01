@@ -47,15 +47,21 @@ export function proxy (target: Object, sourceKey: string, key: string) {
 
 export function initState (vm: Component) {
   vm._watchers = []
+  // 拿到options列表
   const opts = vm.$options
+  // 如果存在props，则初始化props
   if (opts.props) initProps(vm, opts.props)
+  // 和上面同理
   if (opts.methods) initMethods(vm, opts.methods)
   if (opts.data) {
+    // 初始化数据
     initData(vm)
   } else {
     observe(vm._data = {}, true /* asRootData */)
   }
+  // 初始化computed
   if (opts.computed) initComputed(vm, opts.computed)
+  // 初始化watch
   if (opts.watch && opts.watch !== nativeWatch) {
     initWatch(vm, opts.watch)
   }
@@ -110,7 +116,10 @@ function initProps (vm: Component, propsOptions: Object) {
 }
 
 function initData (vm: Component) {
+  // 保存data
   let data = vm.$options.data
+  // 判断传入的data是否为一个函数，如果不是函数，那么会报错
+  // 因为Vue中多个组件共享一组数据，会相互影响
   data = vm._data = typeof data === 'function'
     ? getData(data, vm)
     : data || {}
@@ -123,13 +132,17 @@ function initData (vm: Component) {
     )
   }
   // proxy data on instance
+  // 拿到data中所有的keys值
   const keys = Object.keys(data)
+  // 拿到options中的props
   const props = vm.$options.props
+  // 拿到options中的methods
   const methods = vm.$options.methods
   let i = keys.length
   while (i--) {
     const key = keys[i]
     if (process.env.NODE_ENV !== 'production') {
+      // 判断methods中的key是否已经存在于data上
       if (methods && hasOwn(methods, key)) {
         warn(
           `Method "${key}" has already been defined as a data property.`,
@@ -137,6 +150,8 @@ function initData (vm: Component) {
         )
       }
     }
+    // 判断props中的key是否已经存在于data上
+    // 这一步和上面一步都是为了props methods data三者防止重名
     if (props && hasOwn(props, key)) {
       process.env.NODE_ENV !== 'production' && warn(
         `The data property "${key}" is already declared as a prop. ` +
@@ -148,6 +163,7 @@ function initData (vm: Component) {
     }
   }
   // observe data
+  // 开始对数据进行双向绑定
   observe(data, true /* asRootData */)
 }
 

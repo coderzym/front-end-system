@@ -67,6 +67,7 @@ class Observe {
             // 使用递归将每一个属性都拿出来
             let value = data[key]
             this.observe(value)
+            // 创建Dep实例，用来关联当前的值和Watcher
             let dep = new Dep()
             Object.defineProperty(data, key, {
                 get() {
@@ -77,6 +78,7 @@ class Observe {
                     return value
                 },
                 set: (newVal) => {
+                    // 如果新值和旧值不相等，那才触发更新
                     if (value !== newVal) {
                         this.observe(newVal)
                         value = newVal

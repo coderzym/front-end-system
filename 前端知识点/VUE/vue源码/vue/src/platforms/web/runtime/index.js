@@ -38,7 +38,9 @@ Vue.prototype.$mount = function (
   el?: string | Element,
   hydrating?: boolean
 ): Component {
+  // 判断当前传入的options中是否有el元素，如果没有的话，就去获取
   el = el && inBrowser ? query(el) : undefined
+  // 然后调用mountComponent方法，所以我们又得绕回去
   return mountComponent(this, el, hydrating)
 }
 

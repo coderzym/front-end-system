@@ -41,9 +41,11 @@ export class Observer {
 
   constructor (value: any) {
     this.value = value
+    // 添加订阅
     this.dep = new Dep()
     this.vmCount = 0
     def(value, '__ob__', this)
+    // 对数组类型进行特殊处理
     if (Array.isArray(value)) {
       if (hasProto) {
         protoAugment(value, arrayMethods)
@@ -52,6 +54,7 @@ export class Observer {
       }
       this.observeArray(value)
     } else {
+      // 如果不是数组，那么就走正常的绑定逻辑
       this.walk(value)
     }
   }
@@ -108,6 +111,7 @@ function copyAugment (target: Object, src: Object, keys: Array<string>) {
  * or the existing observer if the value already has one.
  */
 export function observe (value: any, asRootData: ?boolean): Observer | void {
+  // 如果不是Object对象或者值为虚拟Node的实例
   if (!isObject(value) || value instanceof VNode) {
     return
   }
@@ -115,12 +119,17 @@ export function observe (value: any, asRootData: ?boolean): Observer | void {
   if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
     ob = value.__ob__
   } else if (
+    // 是否应该Observe
     shouldObserve &&
+    // 非服务端渲染
     !isServerRendering() &&
+    // value是否为数组或者是否为对象
     (Array.isArray(value) || isPlainObject(value)) &&
+    // 这个对象是否可扩展
     Object.isExtensible(value) &&
     !value._isVue
   ) {
+    // 进行数据双向绑定
     ob = new Observer(value)
   }
   if (asRootData && ob) {
@@ -152,17 +161,21 @@ export function defineReactive (
   if ((!getter || setter) && arguments.length === 2) {
     val = obj[key]
   }
-
+  // 判断是否存在子对象
   let childOb = !shallow && observe(val)
   Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,
     get: function reactiveGetter () {
       const value = getter ? getter.call(obj) : val
+      // 如果存在dep框，那就把当前的这项值收集起来，
+      // 在下方的notify中收集依赖
       if (Dep.target) {
         dep.depend()
         if (childOb) {
+          // 如果存在子对象，也收集它的依赖
           childOb.dep.depend()
+          // 如果是数组，另外处理
           if (Array.isArray(value)) {
             dependArray(value)
           }
@@ -176,18 +189,20 @@ export function defineReactive (
       if (newVal === value || (newVal !== newVal && value !== value)) {
         return
       }
-      /* eslint-enable no-self-compare */
+      // 又是环境判断
       if (process.env.NODE_ENV !== 'production' && customSetter) {
         customSetter()
       }
-      // #7981: for accessor properties without setter
+      // 如果没有setter，那就直接返回咯
       if (getter && !setter) return
+      // 更新值
       if (setter) {
         setter.call(obj, newVal)
       } else {
         val = newVal
       }
       childOb = !shallow && observe(newVal)
+      // 触发Watcher更新视图
       dep.notify()
     }
   })

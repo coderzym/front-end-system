@@ -143,11 +143,22 @@ export function mountComponent (
   el: ?Element,
   hydrating?: boolean
 ): Component {
+  // 保存el元素
   vm.$el = el
+  // 如果没有渲染，还是以此为例：
+  // new Vue({
+  //   router,
+  //   store,
+  //   这里有render，所以会APP会被渲染成一个根节点
+  //   render: h => h(App)
+  // }).$mount('#app')
   if (!vm.$options.render) {
+    // 返回一个空VNode作为占位符
     vm.$options.render = createEmptyVNode
+    // 如果当前不为生产环境，也就是开发环境
     if (process.env.NODE_ENV !== 'production') {
       /* istanbul ignore if */
+      // 如果你传入的options中还有template标签，那么就会给你报错
       if ((vm.$options.template && vm.$options.template.charAt(0) !== '#') ||
         vm.$options.el || el) {
         warn(
@@ -164,11 +175,14 @@ export function mountComponent (
       }
     }
   }
+  // 调用'beforeMount'钩子
   callHook(vm, 'beforeMount')
-
+  // 创建updateComponent方法，不过这里只是一个占位符
   let updateComponent
   /* istanbul ignore if */
+  // 环境判断
   if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+    // 更新组件的方法，非常重要，对T标签进行标记，方便diff算法
     updateComponent = () => {
       const name = vm._name
       const id = vm._uid
@@ -186,26 +200,28 @@ export function mountComponent (
       measure(`vue ${name} patch`, startTag, endTag)
     }
   } else {
+    // 如果当前为生产环境，那么就直接调用_update方法，传入VNode更新页面
     updateComponent = () => {
       vm._update(vm._render(), hydrating)
     }
   }
 
-  // we set this to vm._watcher inside the watcher's constructor
-  // since the watcher's initial patch may call $forceUpdate (e.g. inside child
-  // component's mounted hook), which relies on vm._watcher being already defined
+  // 由Watcher代理更新组件，所以才说Vue的粒度是一个组件一个Watcher
   new Watcher(vm, updateComponent, noop, {
     before () {
+      // 如果组件已经挂载，且实例未被销毁，那么就调用'beforeUpdate'
       if (vm._isMounted && !vm._isDestroyed) {
         callHook(vm, 'beforeUpdate')
       }
     }
+    // 标记当前的Watcher为渲染Watcher，可能是为了和ComputedWatcher进行区分
   }, true /* isRenderWatcher */)
   hydrating = false
 
   // manually mounted instance, call mounted on self
   // mounted is called for render-created child components in its inserted hook
   if (vm.$vnode == null) {
+    // 挂载完毕后，就会调用mounted钩子
     vm._isMounted = true
     callHook(vm, 'mounted')
   }
