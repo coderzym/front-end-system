@@ -8,14 +8,25 @@ var obj1 = {
     }
 }
 
-function deep(obj) {
-    if (typeof obj !== 'object') return
-    var newObj = obj instanceof Array ? [] : {}
+function deep(obj, hash = new WeakMap()) {
+    // 如果是null或者非对象类型的值直接返回
+    if (typeof obj !== 'object' || typeof obj === null) return obj
+    // 如果这个对象已经被拷贝过，那就直接返回，以防死递归
+    if (hash.has(obj)) return hash.get(obj)
+    // 如果是日期对对象，直接返回
+    if (obj instanceof Date) return new Date(obj)
+    // 如果是正则对象，直接返回
+    if (obj instanceof RegExp) return new RegExp(obj)
+    // 给hash中存储，首先构造一个h出来
+    let h = new obj.constructor()
+    // 开始存储
+    hash.set(obj, h)
     for (let k in obj) {
         if (obj.hasOwnProperty(k)) {
-            newObj[k] = typeof obj[k] === 'object' ? deep(obj[k]) : obj[k]
+            h[k] = deep(obj[k], hash)
         }
     }
-    return newObj
+    return h
 }
+
 console.log(deep(obj1));
