@@ -1,0 +1,70 @@
+// // // 独立像素
+// // $design: 750;
+// // // px转vw
+// // @function vw($px) {
+// //     @return ($px / $design / 2)*100vw;
+// // }
+
+// // main img {
+// //     width: vw(375);
+// // }
+
+// // 先设置全局font-size方便后期修改
+// $font-size: 75;
+// // 设置全局设备像素
+// $font-design: 750;
+// // 利用rem布局
+// @function rem($px) {
+//     @return $px / $font-size * 1rem;
+// }
+
+// html {
+//     // 设置HTML根字体大小
+//     font-size: $font-size / $font-design / 2 * 100vw;
+//     // 设置一个范围
+//     @media screen and (min-width:540px) {
+//         font-size: 54px;
+//     }
+//     // 设置一个范围
+//     @media screen and (min-width:320px) {
+//         font-size: 32px;
+//     }
+// }
+
+// body {
+//     // 这里可以自由设置
+//     min-width: 320px;
+// }
+
+// main img {
+//     display: inline-block;
+//     // 这里没有细调，就随便输入了一个数值，
+//     // 实际开发中还是要自己试的
+//     width: rem(375);
+// }
+
+div {
+    width: 200px;
+    height: 100px;
+}
+
+.border-1px {
+    position: relative;
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform-origin: left top;
+        width: 200%;
+        border: 1px solid red;
+        height: 200%;
+        transform: scale(0.5);
+        pointer-events: none;
+        @media screen and (min-device-pixel-ratio:3) {
+            width: 300%;
+            height: 300%;
+            transform: scale(0.33);
+        }
+    }
+}

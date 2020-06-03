@@ -5,11 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 100px;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="app">
-        <!-- 这里是懒得写，所以用了index当key -->
+    <div class="a"></div>
+    <!-- <div id="app">
         <div class='shuru' v-for='(v, k) in arr' :key=k>
             <div class="selfInput" :bind=v>
                 <input type="text" :placeholder=v>
@@ -17,9 +23,9 @@
                 <button @click='deleteInput(k)'>删除</button>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
-    <script>
+    <!-- <script>
         function foo(num) {
             console.log("foo: " + num);
             // 记录 foo 被调用的次数
@@ -40,7 +46,7 @@
         // foo: 9
         // foo 被调用了多少次？
         console.log(foo.count); // 0 -- WTF?
-    </script>
+    </script> -->
 </body>
 
 </html>
