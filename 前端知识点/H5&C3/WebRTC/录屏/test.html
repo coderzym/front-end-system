@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 获取当前可用的录入音频设备信息 -->
+    <div class="audio">
+        <video ref="pre" width="200" height="150" autoplay></video>
+        <div>
+            <button @click="btnRecord">Record</button>
+            <button @click="btnStop">Stop</button>
+            <button @click="btnPaly" :disabled="!currentWebData">播放</button>
+        </div>
+        <video controls ref="video" width="400" height="300"></video>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="test.js"></script>
+</body>
+
+</html>
