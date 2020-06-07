@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="name">
+    <button id="set">设置</button>
+    <input type="text" id="text">
+    <button id="btn">发送</button>
+    <script>
+        document.getElementById('set').onclick = function () {
+            var name = document.querySelector('#name').value
+            if (!name) return
+            ws = new WebSocket('ws://localhost:2333')
+            ws.onopen = function () {
+                ws.send(JSON.stringify({
+                    name: name,
+                    type: 'setName'
+                }))
+                document.querySelector("#btn").addEventListener('click', function () {
+                    ws.send(JSON.stringify({
+                        text: document.querySelector('#text').value,
+                        type: "chat"
+                    }))
+                })
+            }
+            ws.onmessage = function (e) {
+                let p = document.createElement('p')
+                p.innerHTML = e.data
+                document.body.appendChild(p)
+                document.querySelector('#text').value = ''
+            }
+        }
+    </script>
+</body>
+
+</html>
