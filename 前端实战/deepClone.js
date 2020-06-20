@@ -10,7 +10,7 @@ var obj1 = {
 
 function deep(obj, hash = new WeakMap()) {
     // 如果是null或者非对象类型的值直接返回
-    if (typeof obj !== 'object' || typeof obj === null) return obj
+    if (!obj instanceof Object) return obj
     // 如果这个对象已经被拷贝过，那就直接返回，以防死递归
     if (hash.has(obj)) return hash.get(obj)
     // 如果是日期对对象，直接返回
