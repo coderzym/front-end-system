@@ -23,14 +23,6 @@ let a = {
 }
 console.log(a == 1 && a == 2 && a == 3);
 
-八、异步加载JS脚本的方式有哪些？defer和async区别？
-
-可以通过defer、async、动态创建script标签（添加到页面中才会下载）和ajax请求js脚本
-defer和async区别？
-1.defer是等待整个页面DOM加载完毕后，window.onload之前执行，当页面中有多个defer时，按照排列顺序执行
-2.async是异步加载，一旦加载完毕后就会立即执行，会阻碍页面渲染，执行完毕后会继续渲染，当页面中有多个async时
-无法确定先后顺序
-
 十、隐藏页面中的某个元素的方法有哪些？
 
 1.display: none
@@ -55,27 +47,6 @@ defer和async区别？
 1.具有Symbol.iterator接口
 2.能够使用for...of进行循环
 3.能被Array.from转换成数组
-
-十八、什么是跨域？解决跨域的方式有哪些？优缺点分别是什么？
-
-2.CORS：实现CORS通信的关键是服务器
-
-优点：POST和GET请求都可以使用，使用起来更方便
-缺点：兼容性比JSONP略差
-创建方式：在响应头中设置字段：Access-Control-Allow-Origin为*即可
-又分为两种请求方式，一种是简单请求，一种是非简单请求
-简单请求的构成条件：
-1.请求方式为以下三种之一：HEAD GET POST
-2.HTTP的头信息不超出以下几种字段：
-Accept、Accept-Language、Content-Language、Last-Event-ID、Content-Type
-处理简单请求的方式：浏览器会自动在请求头上添加一个Origin字段，注意的是，如果要发送cookie和http认证信息，那么ajax也得开启
-withCredentials属性，且Access-Control-Allow-Origin得指定与请求网页一致的域名（cookie也遵循跨域）
-处理非简单请求：会在发送HTTP请求前发送一次预检请求，服务器同意后才会正式发送HTTP请求，而且在接下来Access-Control-Max-Age
-设置的时间段中不再发送预检请求
-
-7.nginx代理跨域，因为服务器之间不存在同源策略，所以可使用nginx当做中介
-
-9.利用webpack-dev-server
 
 十九、JS代码执行过程？
 

@@ -53,4 +53,3 @@ onChange事件，将子级的状态同步到父级中，状态改变后通过父
 ## 组合和继承
 
 在组件的标签之间写入HTML结构，组件就会认为是它的children，通过this.props.children访问到
-
