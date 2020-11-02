@@ -4,33 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .list {
+            height: 300px;
+            list-style: none;
+        }
+        li {
+            margin: 20px 0;
+            background-color: red;
+            height: 50px;
+        }
+    </style>
 </head>
 <body>
+    <ul class="list">
+        <li data-index="0"></li>
+        <li data-index="1"></li>
+        <li data-index="2"></li>
+        <li data-index="3"></li>
+    </ul>
     <script>
-        function test(person) {
-            
-            person.age = 26
-            
-            person = {
-                name: 'yyy',
-                age: 30
+        let User = {
+            count: 1,
+            action: {
+                getCount: function () {
+                    return this.count
+                }
             }
-            
-            return person
         }
-        
-        const p1 = {
-            
-            name: 'yck',
-            
-            age: 25
-        }
-        
-        const p2 = test(p1)
-        
-        console.log(p1) // -> ?
-        
-        console.log(p2) // -> ?
+        let getCount = User.action.getCount
+        setTimeout(() => {
+            console.log("result 1", User.action.getCount());
+        })
+        console.log("result 2", getCount());
     </script>
 </body>
 </html>
