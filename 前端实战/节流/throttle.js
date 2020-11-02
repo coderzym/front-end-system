@@ -25,21 +25,6 @@ function throttle(fn, wait, flag) {
     return throttled
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // function throttle(fn, wait, options = {}) {
 //     var timeout, _this, previous = 0
 //     function later() {

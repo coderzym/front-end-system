@@ -18,9 +18,9 @@
 
 10.浏览器接收到HTML文件后就会进行处理，这个过程是交给渲染引擎的GUI线程来做，根据HTML文件中定义的charset和doctype来解析文档，GUI线程调用标记化算法和建树算法，实际上就是词法分析和语法分析，生成以document为根节点的DOM树
 
-11.CSS的解析也是同理，只不过会先将CSS文件格式化成styleSheet对象，然后标准化这个对象，比如color: red这个属性会被格式化成16进制的数，最后将计算的结果挂载到window.getStyleComputed上，我们可以通过JS代码访问，但会引起回流
+11.CSS的解析也是同理，只不过会先将CSS文件格式化成styleSheet对象，然后标准化这个对象，比如`color: red`这个属性会被格式化成16进制的数，最后将计算的结果挂载到window.getStyleComputed上，我们可以通过JS代码访问，但会引起回流
 
-12.CSS解析和HTML解析互不干扰，但JS文件就会造成阻塞，因为渲染引擎中的JS线程和GUI线程是互斥的，且JS引擎的优先级比GUI线程高，会将GUI线程挂起，所以script会阻塞页面解析，要放在底部，而link CSS在头部
+12.CSS解析和HTML解析互不干扰，但JS文件就会造成阻塞，因为渲染引擎中的JS线程和GUI线程是互斥的，且JS引擎的优先级比GUI线程高，会将GUI线程挂起，所以script会阻塞页面解析，要放在底部，而link CSS在头部，也可以设置`script`的`defer`来进行延迟解析，对于没有`任何依赖的js文件`可以使用`async`
 
 13.在拿到CSSOM树和DOM树后，会将二者合成为布局树，精确的计算出每一个节点所处的位置以及样式
 
