@@ -1,22 +1,23 @@
 Function.prototype.Call = function (context) {
-    if (typeof context === 'undefined' || context === null) {
-        context = window
+    if (typeof this !== 'function') {
+        throw new TypeError('Error')
     }
+    context = context || window
     context.fn = this
-    let args = [...arguments].slice(1),
-        res = context.fn(...args)
+    let res = [...arguments].slice(1) ? context.fn(...[...arguments].slice(1)) : context.fn()
     delete context.fn
     return res
 }
 
-var firstName = "John1", lastName = "Doe1"
+let firstName = "John1", lastName = "Doe1"
 
-var person = {
+let person = {
     fullName: function (city, country) {
         console.log(this.firstName + " " + this.lastName + "," + city + "," + country)
     }
 }
-var person1 = {
+
+let person1 = {
     firstName: "John",
     lastName: "Doe"
 }
