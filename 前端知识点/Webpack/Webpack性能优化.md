@@ -130,5 +130,7 @@ module.exports = {
 如果你使用 `Webpack 4` 的话，开启 `生产环境` 就会自动启动这个优化功能。
 
 ```js
-    mode: "production"
+module.exports = {
+  mode: "production"
+}
 ```
