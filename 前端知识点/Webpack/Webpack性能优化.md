@@ -90,6 +90,14 @@ module.exports = {
       path: path.join(__dirname, 'dist', '[name]-manifest.json')
     })
   ]
+  // 如果有就一个manifest.json文件的话，也可以这样
+  plugins: [
+    new webpack.DllReferencePlugin({
+      context: __dirname,
+      // manifest就是我们第一步中打包出来的json文件
+      manifest: require('./dist/vendor-manifest.json'),
+    })
+  ]
 }
 ```
 
