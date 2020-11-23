@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一个Web GL页面</title>
+    <script src="../three.js/build/three.min.js"></script>
+    <script>
+        function onLoad() {
+            // 抓取作为Canvas容器得div标签
+            const container = document.getElementById("container")
+
+            // 创建一个渲染器并添加到div标签里
+            const rederer = new THREE.WebGLRenderer()
+            rederer.setSize(container.offsetWidth, container.offsetHeight)
+            container.appendChild(rederer.domElement)
+
+            // 创建three.js场景
+            const scene = new THREE.Scene()
+
+            // 创建相机并添加到场景中
+            const camera = new THREE.PerspectiveCamera(45, container.offsetWidth / container.offsetHeight,  1, 4000)
+            camera.position.set(0, 0, 3.3333)
+            scene.add(camera)
+
+            // 创建一个矩形，并添加
+            const geometry = new THREE.PlaneGeometry(1, 1)
+            const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial())
+            scene.add(mesh)
+
+            // 渲染绘制
+            rederer.render(scene, camera)
+        }
+    </script>
+</head>
+<body onload="onLoad()">
+    <div id="container" style="width: 500px; height: 500px; background-color: #000000"></div>
+</body>
+</html>
