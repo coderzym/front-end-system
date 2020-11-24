@@ -1,3 +1,11 @@
+### 在Vue项目中
+
+```js
+    vue add @vue/typescript
+
+    <script lang="ts"></script>
+```
+
 ### 简单的申明变量
 
 ```js
