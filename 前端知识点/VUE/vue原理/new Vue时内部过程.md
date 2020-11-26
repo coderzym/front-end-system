@@ -8,7 +8,7 @@
   2. 然后会调用`optimize方法`对AST进行静态标记，优化diff算法
   3. 最后会调用`generate方法`将AST树转换成`render function`
 
-4. 拿到`render function`后，会调用$mount中的`mountComponent`方法，这个时候会先执行`beforeMount`，然后`实例化一个Watcher`，在它的回调中调用`updateComponent`方法，此方法会调用render方法将render function渲染成虚拟DOM
+4. 拿到`render function`后，会调用$mount中的`mountComponent`方法，这个时候会先执行`beforeMount`，然后`实例化一个Watcher`，在它的回调中调用`updateComponent`方法，此方法会调用render方法将`render function`渲染成`虚拟DOM`
 
 5. 拿到虚拟DOM后，调用`update方法`，update方法又会调用`patch方法`将虚拟DOM转换成真实DOM，最终调用update方法更新DOM
 
