@@ -1,6 +1,6 @@
 新增语义化标签
-    nav header footer main  aside   section audio video，更好的维护性和可读性
-    script中增加了async，异步加载脚本，并且加载完毕就执行
+    `nav header footer main  aside section audio video`，更好的维护性和可读性
+    `script`中增加了`async`，异步加载脚本，并且加载完毕就执行
     拖拽api
 
 cookie
@@ -19,9 +19,9 @@ doctype的作用是？
     申明文档类型，告知浏览器用W3C的标准解析该文档，如果不申明则会用怪异模式解析
 
 href与src的区别？
-    href
-        不会阻塞浏览器解析文档，当碰到href会并行下载资源，比如使用link href的方式去加载css，而不是使用@import
-    src
+    `href`
+        不会阻塞浏览器解析文档，当碰到`href`会并行下载资源，比如使用`<link href>`的方式去加载css，而不是使用`@import`
+    `src`
         会阻塞浏览器解析文档，直到src的资源被加载完毕才会继续解析剩下的部分
 
 meta有哪些作用？
