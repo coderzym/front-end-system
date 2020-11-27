@@ -12,7 +12,7 @@ beforeCreated Created beforeMount Mounted beforeUpdate Updated beforeDestroy Des
 
 ### beforeMount
 
-`Created`之后，会把我们传入的`template/html`文本编译成`render函数`，紧接着会调用`vm.$mount`准备挂载实例，拿到`Created`中的`render`函数生成`VNode`，对`VNode`进行`patch`操作，`转成真实元素后渲染到DOM上`，但实例还未挂载。之后就是让`Watcher类`来代理执行这个函数，以便收集`响应式数据`。做完这些后才会执行`Mounted回调`，这也说明了为什么我们在Mounted的时候才能使用真实DOM。
+`Created`之后，会把我们传入的`template/html`文本编译成`render函数`生成`VNode`，对`VNode`进行`patch`操作，`转成真实元素后渲染到DOM上`，但实例还未挂载。之后就是让`Watcher类`来代理执行这个函数，以便收集`响应式数据`。做完这些后才会执行`Mounted回调`，这也说明了为什么我们在Mounted的时候才能使用真实DOM。
 
 如果在`render的过程`中碰到了子组件，就会优先构造子组件，`为子组件生成属于子组件的vue构造函数`，执行到`子组件的Mounted`，然后`父级再Mounted`，即使组件过多，总是`先完成内部`的Mounted，然后外部再完成，遵循先子后父
 

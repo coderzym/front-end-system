@@ -10,9 +10,45 @@
 
 ### 跨层级
 
-1. $attrs。在父组件中引入，然后绑定v-bind='$attrs'，在子组件中可通过$attrs进行访问，通常配合inheritAttrs。也可以将父组件中的data绑定到子组件上，然后在子组件内部使用$attrs依然可以访问到
+1. $attrs。在父组件中引入，然后绑定v-bind='$attrs'，在子组件中可通过$attrs进行访问，通常配合`inheritAttrs`。也可以将父组件中的data绑定到子组件上，然后在子组件内部使用$attrs依然可以访问到，下面先对`inheritAttrs`打个比方：
 
-2. $listeners。和$attrs类似，只不过使用的是v-on='$listeners'
+<!-- 父组件 -->
+<template>
+　<div class="parent">
+    <child-component aaa="1111"></child-component>
+  </div>
+</template>
+
+<script>
+import ChildComponent from './child-component'
+export default {
+  components: {
+    ChildComponent
+  }
+}
+</script>
+
+<!-- 子组件 -->
+<template>
+  <div class="child" v-bind="$attrs">子组件</div>
+</template>
+
+<script>
+export default {
+  inheritAttrs: true,
+  mounted() {
+    console.log('this.$attrs', this.$attrs) // { aaa: 1111 }
+  }
+}
+</script>
+
+结论：
+
+   1. 子组件中的`inheritAttrs`值为`true`，那么子组件的根元素会渲染父组件传过来的值，反之则不会
+   
+   2. 如果子组件中的props没有申明，但父组件上传值了，那么可以在子组件中通过`$attrs`进行访问
+
+2. $listeners。和$attrs类似，只不过使用的是v-on='$listeners'，子组件可以拿到父组件的方法(不含`.native`)
 
 3. provide/inject。无论层级有多深，都可以直接访问到，不推荐使用，会导致数据流混乱，如：
 

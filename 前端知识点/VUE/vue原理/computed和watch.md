@@ -10,4 +10,4 @@ computed本质上是一个watcher，不过它有自己的getter函数以及dirty
 
 而watch没有缓存性，只要被触发就会去求值并且重新渲染，可以开启deep：true将对象中的每一项属性进行监听，不过会带来性能问题
 
-所以computed更适合依赖多个响应式数据的场景，而watch更适合用来监听某一项数据改变后的执行场景
+所以computed更适合依赖多个响应式数据的场景，而watch更适合用来监听某一项数据改变后的执行场景，还有就是computed内不能发送请求，但是watch可以，因为computed是计算属性，不能等axios请求
