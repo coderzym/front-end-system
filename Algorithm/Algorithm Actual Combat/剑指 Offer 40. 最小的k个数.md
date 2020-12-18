@@ -26,4 +26,4 @@ var getLeastNumbers = function(arr, k) {
 };
 ```
 
-思路：这种提醒就没必要开辟新的内存空间了
+思路：这种题型就没必要开辟新的内存空间了
