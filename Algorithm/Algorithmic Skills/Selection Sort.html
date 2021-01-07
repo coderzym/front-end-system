@@ -11,13 +11,20 @@
     选择最大或者最小值，然后进行排序
     <script>
         function selectionSort(arr) {
-            // 默认最小的值为第一个
-            let minValue = arr[0]
             for (let i = 0; i < arr.length; i++) {
+                let minValue = arr[i],
+                    index = i
+                // 选择从右边开始最小的值
                 for (let j = i + 1; j < arr.length; j++) {
                     if (minValue > arr[j]) {
-                        [minValue, arr[j]] = [arr[j], minValue]
+                        index = j
+                        minValue = arr[j]
                     }
+                }
+                // 如果这个最小值比当前的值小，那么交换
+                if (minValue < arr[i]) {
+                    arr[index] = arr[i]
+                    arr[i] = minValue
                 }
             }
             return arr
