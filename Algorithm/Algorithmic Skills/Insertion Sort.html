@@ -8,6 +8,15 @@
 </head>
 
 <body>
+    let arr = [10, 8, 0, 12]
+    initial: i = 1，j = 0, temp = 8, arr[j] = 10
+    first: arr[j] > temp
+           arr[j + 1] => arr[1] = arr[j] => arr[1] = 10
+           j => -1
+    then:  arr = [10, 10, 0, 12]
+           temp = 8, j = -1，
+           arr[j + 1] = temp => arr[0] = 8，
+    last:  arr = [8, 10, 0, 12]
     <script>
         function insertionSort(arr) {
             for (let i = 1; i < arr.length; i++) {
