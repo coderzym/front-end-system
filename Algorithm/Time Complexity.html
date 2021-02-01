@@ -8,11 +8,30 @@
 </head>
 
 <body>
-    1. for循环里面套for循环是O(n²)
-    2. for循环里面套for循环是O(n)
-    3. 没有循环是O(1)
+    去掉低阶和常数阶
     <script>
+        // O(n²)
+        for (let i = 0; i < n; i++) {
+            for (let j = 0; j < n; j++) {
+                // do something
+            }
+        }
 
+        // O(n)
+        for (let i = 0; i < n; i++) {
+            // do something
+        }
+
+        // O(1)
+        // do something 也就是没有循环
+
+        // O(logN)
+        // 每次循环i都接近循环次数N
+        let i = 0
+        let N = 10
+        while (i < N) {
+            i += 2
+        }
     </script>
 </body>
 
