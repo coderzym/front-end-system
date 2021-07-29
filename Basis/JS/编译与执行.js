@@ -64,30 +64,161 @@ zoo(); // 2
     }
 
   2. 创建作用域链：作用域链由多个变量对象组成。当函数执行时，它先从自己的作用域链上查找相关变量，如果没有找到，就会去外层的作用域链上，直到全局作用域链。所以遵循层层向外查找的规律。
-  3. 确定this指向。
+
+  3. 确定this对象的指向。
 
 作用域链可以理解为下面这种伪代码格式，
 
 {
   Scope: 
   [
-    { //当前作用域对应的VO
-        实参,
-        形参,
-        变量,
-        函数
+    { // 当前作用域对应的VO
+      实参,
+      形参,
+      变量,
+      函数
     }, 
-    { //第二个作用域对应的VO
-        实参,
-        形参,
-        变量,
-        函数
+    { // 第二个作用域对应的VO
+      实参,
+      形参,
+      变量,
+      函数
     },
     ... 
-    { //全局作用域对应的VO
-        变量,
-        函数
+    { // 全局作用域对应的VO
+      变量,
+      函数
     }
   ]
 }
 
+最后来谈谈 this 。它有四种绑定规则，
+
+  1. 默认绑定
+  2. 隐式绑定
+  3. 显式绑定
+  4. new操作符
+
+先来看看默认绑定，一句话概括就是，函数 this 指向它的调用者，看个例子：
+
+function foo() {
+  console.log(this.a);
+}
+var a = 2;
+foo(); // 2
+
+如果在严格模式下，就会报错，因为全局的 this 指向 undefined
+
+再来看看隐式绑定。它和显示绑定不同的是，它可能会存在其他的上下文对象，所以我们需要搞清楚执行上下文栈，举个例子分析下，*/
+
+function foo() {
+  console.log(this.a);
+}
+const container = {
+  a: 2,
+  foo: foo,
+};
+container.foo(); // 2
+
+/* 这段代码转换成执行上下文栈就是这个样子：
+
+{
+  Scope: 
+  [
+    { // 当前作用域对应的VO
+      a = 2,
+      foo = function foo() {},
+      this => container
+    },
+    { // 全局作用域对应的VO
+      function foo() {},
+      container对象,
+      this => window
+    }
+  ]
+}
+
+再来换一个代码块, */
+
+function foo() {
+  console.log(this.a);
+}
+var obj2 = {
+  a: 42,
+  foo: foo,
+};
+var obj1 = {
+  a: 2,
+  obj2: obj2,
+};
+obj1.obj2.foo(); // 42
+
+/* 这段代码转换成执行上下文栈就是这个样子：
+
+{
+  Scope:
+  [
+    { // foo函数作用域对应的AO
+      this => obj2
+    },
+    { // obj2块作用域对应的AO
+      a = 42,
+      foo = function foo() {},
+      this => obj2
+    },
+    { // obj1块作用域对应的AO
+      a = 2,
+      obj2 = obj2对象,
+      this => obj1
+    },
+    { // 全局作用域对应的VO
+      function foo() {},
+      obj1对象,
+      obj2对象,
+      this => window
+    }
+  ]
+}
+
+当函数执行的时候，就会把在作用域链上找 this，结果就是 obj2 。再来看看隐式丢失， */
+
+function foo() {
+  console.log(this.a);
+}
+const container = {
+  a: 2,
+  foo: foo,
+};
+const bar = container.foo;
+const a = "Hello world!";
+bar(); // "Hello world!"
+
+/* 执行上下文栈 => 
+
+{
+  Scope: 
+  [
+    { // bar函数的AO
+      this => window
+    },
+    { // 全局VO
+      function foo() {},
+      container对象，
+      bar = function foo() {},
+      a = "Hello world!",
+      this => window
+    }
+  ]
+}
+
+显式绑定就是 call apply bind。
+
+func1.call(obj, param1, param2, param3)
+func1.apply(obj, [param1, param2, param3])
+func1.bind(obj, param1, param2, param3) 不会立即返回结果，需要再执行一次，可以理解为返回的是一个闭包
+
+new 操作符。将 this 指向当前的构造函数。 
+
+this优先级：new > 显示绑定 > 隐式绑定 > 默认绑定
+
+箭头函数没有自己的this，只继承第一个非箭头函数的this */
