@@ -1,13 +1,12 @@
-function route(handle, pathname, response) {
-  console.log("About to route a request for " + pathname);
-  if (typeof handle[pathname] === "function") {
-    handle[pathname](response);
-  } else {
-    console.log("No request handler found for " + pathname);
-    response.writeHead(404, { "Content-Type": "text/plain" });
-    response.write("404 Not found");
+const fs = require("fs");
+
+function router(pathname, response) {
+  console.log("????", pathname);
+  fs.readFile(`./${pathname}.json`, "utf-8", (err, data) => {
+    // response.write(`cb(${JSON.stringify(data)})`);
+    response.write(data.replace(/\r\n/g, ""));
     response.end();
-  }
+  });
 }
 
-exports.route = route;
+module.exports = router;

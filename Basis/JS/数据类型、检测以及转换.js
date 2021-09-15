@@ -252,6 +252,6 @@ const a = {
 数组的toString方法默认会使用数组的join方法：
 
 const a = [1,2,3]
-a.join = a.shift()
+a.join = a.shift
 
 这样一来，进行对比的时候，就会a.toString方法也就调用的是a.shift方法，就会弹出第一个值。 */

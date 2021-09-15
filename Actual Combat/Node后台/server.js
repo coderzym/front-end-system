@@ -1,16 +1,26 @@
-var http = require("http");
-var url = require("url");
+function start() {
+  var router = require("./router");
+  //引入http模块
+  var http = require("http");
+  //设置主机名
+  var hostName = "127.0.0.1";
+  //设置端口
+  var port = 3000;
+  //创建服务
+  var server = http.createServer(function (req, res) {
+    // application/json text/html text/plain
+    res.setHeader("Content-Type", "application/json");
+    // 解决跨域
+    res.setHeader("Access-Control-Allow-Origin", "*");
+  });
 
-function start(route, handle) {
-  function onRequest(request, response) {
-    var pathname = url.parse(request.url).pathname;
-    console.log("Request for " + pathname + " received.");
+  server.on("request", (request, response) => {
+    router(request.url, response);
+  });
 
-    route(handle, pathname, response);
-  }
-
-  http.createServer(onRequest).listen(8888);
-  console.log("Server has started.");
+  server.listen(port, hostName, function () {
+    console.log(`服务器运行在http://${hostName}:${port}`);
+  });
 }
 
-exports.start = start;
+module.exports = start;
