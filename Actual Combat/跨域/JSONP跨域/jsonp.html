@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.cb = res => {
+            console.log(res);
+        }
+    </script>
+    <script src="http://127.0.0.1:3000"></script>
+    <script>
+        let xhr = new XMLHttpRequest()
+        let apiUrl = "http://127.0.0.1:3000"
+        xhr.open("GET", apiUrl);
+        xhr.send();
+    </script>
+</body>
+
+</html>

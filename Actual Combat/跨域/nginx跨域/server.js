@@ -1,18 +1,20 @@
-const http = require('http');
+const http = require("http");
 
-http.createServer(function (request, response) {
+http
+  .createServer(function (request, response) {
+    console.log("request", request);
     response.writeHead(200, {
-        'Content-Type': 'application/json;charset=utf-8'
+      "Content-Type": "application/json;charset=utf-8",
     });
 
     let data = {
-        name: 'nginx proxy'
+      name: "nginx proxy",
     };
 
     data = JSON.stringify(data);
 
     response.end(data);
+  })
+  .listen(8887);
 
-}).listen(8887);
-
-console.log('server1 is listen at 8887 port');
+console.log("server1 is listen at 8887 port");
