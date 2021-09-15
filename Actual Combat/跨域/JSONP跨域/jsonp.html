@@ -8,15 +8,20 @@
 </head>
 
 <body>
-    <script>
+    <!-- <script>
         window.cb = res => {
             console.log(res);
         }
     </script>
-    <script src="http://127.0.0.1:3000"></script>
+    <script src="http://127.0.0.1:3000"></script> -->
     <script>
         let xhr = new XMLHttpRequest()
         let apiUrl = "http://127.0.0.1:3000"
+        xhr.onreadystatechange = res => {
+            if (res.target.readyState == 4) {
+                console.log(JSON.parse(res.target.response));
+            }
+        }
         xhr.open("GET", apiUrl);
         xhr.send();
     </script>

@@ -20,13 +20,13 @@ var server = http.createServer(function (req, res) {
   // application/json text/html text/plain
   res.setHeader("Content-Type", "application/json");
   // 解决跨域
-  // res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "*");
 });
 
 server.on("request", (request, response) => {
   fs.readFile("./data.json", "utf-8", (error, data) => {
     // response.write(`cb(${JSON.stringify(data)})`);
-    response.write(JSON.stringify(data));
+    response.write(data.replace(/\r\n/g, ""));
     response.end();
   });
 });
