@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- <script>
-        window.cb = res => {
-            console.log(res);
-        }
+      window.cb = res => {
+        console.log(res);
+      };
     </script>
     <script src="http://127.0.0.1:3000"></script> -->
     <script>
-        let xhr = new XMLHttpRequest()
-        let apiUrl = "http://127.0.0.1:3000"
-        xhr.onreadystatechange = res => {
-            if (res.target.readyState == 4) {
-                console.log(JSON.parse(res.target.response));
-            }
+      let xhr = new XMLHttpRequest();
+      let apiUrl = "http://127.0.0.1:3000";
+      xhr.onreadystatechange = res => {
+        if (res.target.readyState == 4) {
+          console.log(JSON.parse(res.target.response));
         }
-        xhr.open("GET", apiUrl);
-        xhr.send();
+      };
+      xhr.open("GET", apiUrl);
+      xhr.send();
     </script>
-</body>
-
+  </body>
 </html>
