@@ -33,3 +33,30 @@ class Example extends React.Component {
 ```
 
 2. createRef 的形式
+
+```js
+class Example extends React.Component {
+  showData = () => {
+    this.ref1 = React.createRef(); // input的框
+    console.log(this.ref1.current); // 输出的就是input框元素
+  };
+
+  render() {
+    return <input ref={this.ref1} />;
+  }
+}
+```
+
+`重点：请不要随意使用Ref，否则组件会不高效。`以上面的例子来讲，还可以这样编码达到相同的效果：
+
+```js
+class Example extends React.Component {
+  showData = event => {
+    console.log(event.target.value); // 输出的就是input框元素
+  };
+
+  render() {
+    return <input onClick={this.showData} />;
+  }
+}
+```
